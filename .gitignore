@@ -1,0 +1,5 @@
+.idea
+*.pth
+*.gz
+scripts/data
+
