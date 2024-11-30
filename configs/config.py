@@ -10,6 +10,6 @@ config = {
     "beta_schedule": "linear",
     "block_out_channels": (64, 128, 256, 512),
     "device": torch.device("cuda" if torch.cuda.is_available() else "cpu"),
-    "save_dir": "./saved_models",
+    "save_dir": "../saved_models",
     "test_subset_size":8
 }

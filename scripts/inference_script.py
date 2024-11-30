@@ -1,13 +1,13 @@
-from data.dataset import CIFAR10GrayToColor
-from models.model import get_model
-from inference.infer import infer
-from models.save_model import load_model
-from configs.config import config
-from utils.transforms import get_transforms
-from torch.utils.data import DataLoader, Subset
-from diffusers import DDPMScheduler
 import matplotlib.pyplot as plt
-import torch
+from diffusers import DDPMScheduler
+from torch.utils.data import DataLoader, Subset
+
+from configs.config import config
+from data.dataset import CIFAR10GrayToColor
+from inference.infer import infer
+from models.model import get_model
+from models.save_model import load_model
+from utils.transforms import get_transforms
 
 # Get transforms
 transform, reverse_transform = get_transforms()
@@ -15,7 +15,7 @@ transform, reverse_transform = get_transforms()
 # Load test dataset
 test_dataset = CIFAR10GrayToColor(root="./data", train=False, transform=transform)
 test_subset = Subset(test_dataset, range(config["test_subset_size"]))
-test_loader = DataLoader(test_subset, batch_size=config["batch_size"], shuffle=False)
+test_loader = DataLoader(test_subset, batch_size=config["batch_size"], shuffle=True)
 
 # Initialize model and scheduler
 model = get_model(config)

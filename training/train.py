@@ -1,9 +1,10 @@
 import os
+
 import torch
+from diffusers import DDPMScheduler
 from torch.nn import MSELoss
 from torch.optim import AdamW
 from tqdm import tqdm
-from diffusers import DDPMScheduler
 
 
 def train_model(model, train_loader, config):
@@ -45,6 +46,9 @@ def train_model(model, train_loader, config):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+
+            # Gradient clipping
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 
             losses += loss.item()
             # Update progress bar
